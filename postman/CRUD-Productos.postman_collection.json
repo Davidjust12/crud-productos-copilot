@@ -1,0 +1,189 @@
+{
+  "info": {
+    "_postman_id": "a5c48876-4240-4b37-a9a8-88bfebd589c2",
+    "name": "CRUD Productos",
+    "description": "Colección para probar la API REST de productos. Inicia el servidor en http://localhost:3000 antes de ejecutar las solicitudes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "productoId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Crear producto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Rosa\",\n  \"precio\": 12.5,\n  \"cantidad\": 10\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "productos"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Producto creado', function () {",
+              "  pm.response.to.have.status(201);",
+              "  pm.collectionVariables.set('productoId', pm.response.json().id);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Listar productos",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/productos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "productos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar productos (barra final)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/productos/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "productos",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "Consultar producto",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/productos/{{productoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "productos",
+            "{{productoId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Reemplazar producto",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Tulipán\",\n  \"precio\": 8,\n  \"cantidad\": 4\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productos/{{productoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "productos",
+            "{{productoId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Actualizar cantidad",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cantidad\": 6\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productos/{{productoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "productos",
+            "{{productoId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eliminar producto",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/productos/{{productoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "productos",
+            "{{productoId}}"
+          ]
+        }
+      }
+    }
+  ]
+}
